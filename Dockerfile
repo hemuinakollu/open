@@ -1,7 +1,12 @@
-FROM ubuntu:14.04.3
-MAINTAINER Elton Stoneman <elton@sixeyed.com>
+# Base of your container
+FROM microsoft/aspnet:latest
 
-COPY setup.sh /usr/local/setup.sh
-RUN /usr/local/setup.sh
+# Copy the project into folder and then restore packages
+COPY . /app
+WORKDIR /app
+RUN ["dnu","restore"]
 
-CMD /bin/bash
+# Open this port in the container
+EXPOSE 5000
+# Start application
+ENTRYPOINT ["dnx","-p","project.json", "Microsoft.AspNet.Server.Kestrel", "--server.urls", "http://0.0.0.0:5000"]
