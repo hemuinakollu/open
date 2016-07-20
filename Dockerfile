@@ -1,15 +1,7 @@
-FROM microsoft/dotnet:1.0.0-core
+FROM ubuntu:14.04.3
+MAINTAINER Elton Stoneman <elton@sixeyed.com>
 
-# Set the Working Directory
-WORKDIR /app
+COPY setup.sh /usr/local/setup.sh
+RUN /usr/local/setup.sh
 
-# Copy the app
-COPY /app /app
-
-ARG CONTAINER_PORT=5000
-ARG SERVER_URLS=http://*:$CONTAINER_PORT
-ENV SERVER.URLS $SERVER_URLS
-EXPOSE $CONTAINER_PORT
-
-# Start the app
-ENTRYPOINT dotnet TestApp.dll
+CMD /bin/bash
