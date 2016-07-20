@@ -1,10 +1,8 @@
-FROM microsoft/aspnet
+FROM ubuntu:14.04.3
 MAINTAINER Elton Stoneman <elton@sixeyed.com>
 
-# ensure the expected DNX is available
-ENV PATH /root/.dnx/runtimes/dnx-coreclr-linux-x64.1.0.0-rc1-update2/bin:$PATH
+# setup .NET core - installs latest DNX and sets it to default
+COPY install-coreclr.sh /usr/local/install-coreclr.sh
+RUN /usr/local/install-coreclr.sh
 
-# deploy the Hello World app
-COPY /open1 /opt/open1
-RUN cd /opt/open1 && dnu restore
-CMD cd /opt/open1 && dnx run
+CMD /bin/bash
