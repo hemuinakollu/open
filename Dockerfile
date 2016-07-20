@@ -1,4 +1,4 @@
-FROM sixeyed/coreclr-base
+FROM microsoft/aspnet
 MAINTAINER Elton Stoneman <elton@sixeyed.com>
 
 # ensure the expected DNX is available
